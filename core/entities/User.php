@@ -25,7 +25,7 @@ class User extends ActiveRecord
     const STATUS_WAIT = 0;
     const STATUS_ACTIVE = 10;
 
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%users}}';
     }

@@ -4,6 +4,7 @@ namespace app\core\repositories;
 
 use app\core\entities\User;
 use app\core\exceptions\NotFoundException;
+use core\exceptions\SaveErrorException;
 
 class UserRepository
 {
@@ -40,14 +41,14 @@ class UserRepository
     public function save(User $user): void
     {
         if (!$user->save()) {
-            throw new \RuntimeException('Saving error.');
+            throw new SaveErrorException('Saving error.');
         }
     }
 
     public function remove(User $user): void
     {
         if (!$user->delete()) {
-            throw new \RuntimeException('Removing error.');
+            throw new SaveErrorException('Removing error.');
         }
     }
 
