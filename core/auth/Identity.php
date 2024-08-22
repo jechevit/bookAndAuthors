@@ -2,7 +2,7 @@
 
 namespace app\core\auth;
 
-use app\models\User;
+use app\core\entities\User;
 use app\core\readModels\UserReadRepository;
 use yii\base\InvalidConfigException;
 use yii\base\NotSupportedException;

@@ -2,8 +2,8 @@
 
 namespace app\core\repositories;
 
+use app\core\entities\User;
 use app\core\exceptions\NotFoundException;
-use app\models\User;
 
 class UserRepository
 {

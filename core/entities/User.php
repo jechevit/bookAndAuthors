@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\core\entities;
 
 use Yii;
 use yii\base\Exception;

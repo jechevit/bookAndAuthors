@@ -2,10 +2,10 @@
 
 namespace app\core\services\auth;
 
+use app\core\entities\User;
 use app\core\forms\SignupForm;
-use app\core\services\TransactionManager;
-use app\models\User;
 use app\core\repositories\UserRepository;
+use app\core\services\TransactionManager;
 
 class SignupService
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-use app\models\User;
+use app\core\entities\User;
 use yii\web\View;
 
 /* @var View $this */

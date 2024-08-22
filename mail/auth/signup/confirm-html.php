@@ -1,6 +1,6 @@
 <?php
 
-use app\models\User;
+use app\core\entities\User;
 use yii\helpers\Html;
 use yii\web\View;
 

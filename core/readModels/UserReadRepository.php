@@ -3,7 +3,7 @@
 namespace app\core\readModels;
 
 
-use app\models\User;
+use app\core\entities\User;
 
 class UserReadRepository
 {

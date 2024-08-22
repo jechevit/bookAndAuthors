@@ -2,9 +2,9 @@
 
 namespace app\core\services\auth;
 
+use app\core\entities\User;
 use app\core\forms\LoginForm;
 use app\core\repositories\UserRepository;
-use app\models\User;
 
 class AuthService
 {

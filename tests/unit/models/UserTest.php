@@ -1,8 +1,8 @@
 <?php
 
-namespace tests\unit\models;
+namespace app\tests\unit\models;
 
-use app\models\User;
+use app\core\entities\User;
 
 class UserTest extends \Codeception\Test\Unit
 {
