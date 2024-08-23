@@ -63,6 +63,14 @@ class Identity implements IdentityInterface
     /**
      * @return string
      */
+    public function getEmail(): string
+    {
+        return $this->user->email;
+    }
+
+    /**
+     * @return string
+     */
     public function getAuthKey(): string
     {
         return $this->user->auth_key;

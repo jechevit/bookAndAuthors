@@ -21,6 +21,8 @@ use yii\db\BaseActiveRecord;
  */
 class Author extends ActiveRecord
 {
+    public int | null $books_per_year = null;
+
     /**
      * @param string $name
      * @param string $patronymic
@@ -51,6 +53,14 @@ class Author extends ActiveRecord
     public function getBookAssignments(): ActiveQuery
     {
         return $this->hasMany(BookAuthorAssignment::class, ['author_id' => 'id']);
+    }
+
+    public function getShortFullName(): string
+    {
+        $patronymic = mb_substr($this->patronymic, 0, 1);
+        $name = mb_substr($this->name, 0, 1);
+
+        return "{$this->last_name} {$name}.{$patronymic}.";
     }
 
     public function behaviors(): array

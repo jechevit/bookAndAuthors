@@ -2,8 +2,9 @@
 
 namespace app\controllers;
 
+use app\core\repositories\catalog\AuthorRepository;
+use app\core\repositories\catalog\BookRepository;
 use app\models\ContactForm;
-use core\forms\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -12,6 +13,14 @@ use yii\web\Response;
 
 class SiteController extends Controller
 {
+    public function __construct($id, $module,
+                                public BookRepository $bookRepository,
+                                public AuthorRepository $authorRepository,
+                                $config = [])
+    {
+        parent::__construct($id, $module, $config);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -61,58 +70,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
-    }
+        $lastAuthors = $this->authorRepository->getLastAuthors();
+        $lastBooks = $this->bookRepository->getLastBooks();
 
-    /**
-     * Login action.
-     *
-     * @return Response|string
-     */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
+        return $this->render('index', [
+            'lastAuthors' => $lastAuthors,
+            'lastBooks' => $lastBooks,
         ]);
     }
 

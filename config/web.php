@@ -8,6 +8,7 @@ $urlManager = require __DIR__ . '/urlManager.php';
 
 $config = [
     'id' => 'basic',
+    'timeZone' => 'Europe/Moscow',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [

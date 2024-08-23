@@ -2,6 +2,7 @@
 
 namespace app\core\entities\catalog;
 
+use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -9,6 +10,7 @@ use yii\db\BaseActiveRecord;
 
 /**
  * 1. Книга - название, год выпуска, описание, isbn, фото главной страницы.
+ *
  * @property int $id
  * @property string $name
  * @property int $year
@@ -40,6 +42,26 @@ class Book extends ActiveRecord
         return $model;
     }
 
+    /**
+     * @param array | Author[] $authors
+     * @return void
+     */
+    public function addAuthor(array $authors): void
+    {
+        $authorAssignments = $this->authorAssignments;
+        foreach ($authors as $author) {
+            $authorAssignments[] = BookAuthorAssignment::create($author->id);
+        }
+        $this->authorAssignments = $authorAssignments;
+    }
+
+    public function getAuthorData(): array
+    {
+        return array_map(function (Author $author) {
+            return $author->getShortFullName() ;
+        }, $this->authors);
+    }
+
     public static function tableName(): string
     {
         return '{{%books}}';
@@ -59,10 +81,12 @@ class Book extends ActiveRecord
     public function behaviors(): array
     {
         return [
-//            [
-//                'class' => SaveRelationsBehavior::className(),
-//                'relations' => ['networks', 'wishlistItems'],
-//            ],
+            [
+                'class' => SaveRelationsBehavior::class,
+                'relations' => [
+                    'authorAssignments',
+                ],
+            ],
             [
                 'class' => TimestampBehavior::class,
                 'attributes' => [

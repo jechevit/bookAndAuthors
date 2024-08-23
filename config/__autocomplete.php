@@ -1,6 +1,6 @@
 <?php
 
-use app\core\entities\User;
+use app\core\auth\Identity;
 
 /**
  * This class only exists here for IDE (PHPStorm/Netbeans/...) autocompletion.
@@ -29,7 +29,7 @@ class __Application {
 }
 
 /**
- * @property User $identity
+ * @property Identity $identity
  */
 class __WebUser {
 }

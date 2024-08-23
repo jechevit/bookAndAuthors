@@ -21,4 +21,16 @@ class AuthorRepository
         }
     }
 
+    /**
+     * @param int $limit
+     * @return array | Author[]
+     */
+    public function getLastAuthors(int $limit = 10): array
+    {
+        return Author::find()
+            ->limit($limit)
+            ->orderBy(['created_at' => SORT_DESC])
+            ->all();
+    }
+
 }

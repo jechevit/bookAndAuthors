@@ -12,10 +12,9 @@ use yii\db\ActiveRecord;
  */
 class BookAuthorAssignment extends ActiveRecord
 {
-    public static function create(int $bookId, int $authorId): self
+    public static function create(int $authorId): self
     {
         $model = new self();
-        $model->book_id = $bookId;
         $model->author_id = $authorId;
 
         return $model;
