@@ -1,12 +1,12 @@
 <?php
 
-use app\core\entities\catalog\Author;
 use app\core\entities\catalog\Book;
 use core\searchForms\redact\BookSearchForm;
 use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -45,6 +45,12 @@ use yii\web\View;
                 ],
                 [
                     'class' => ActionColumn::class,
+                    'buttons' => [
+                        'view' => function ($url, Book $book) {
+                            $url = Url::to(['redact/book/view', 'id' => $book->id]);
+                            return Html::a('Redact', $url, []);
+                        }
+                    ],
                     'template' => '{view}',
                     'visibleButtons' => [
                         'view' => !Yii::$app->user->isGuest

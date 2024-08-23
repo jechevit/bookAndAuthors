@@ -12,7 +12,7 @@ return [
         'signup/<_a:[\w-]+>' => 'signup/<_a>',
         '<_a:login|logout>' => 'auth/<_a>',
 
-        'author/<id:\d+>' => 'author/view',
-        'book/<id:\d+>' => 'book/view',
+        'redact/author/view/<id:\d+>' => 'redact/author/view',
+        'redact/book/view/<id:\d+>' => 'redact/book/view',
     ],
 ];
