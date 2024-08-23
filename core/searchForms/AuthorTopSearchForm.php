@@ -43,7 +43,8 @@ class AuthorTopSearchForm extends Model
 
         $dataProvider = $this->getDataProvider($authors);
         if (!$this->validate()) {
-            return $dataProvider->query->where('0=1')->all();
+            $authors->where('0=1');
+            return $dataProvider;
         }
 
         $authors->joinWith('books')
