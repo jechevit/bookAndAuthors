@@ -23,6 +23,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
 $items = [
     ['label' => 'Home', 'url' => ['/site/index']],
+    ['label' => 'List Books', 'url' => ['/book']],
+    ['label' => 'List Authors', 'url' => ['/author']],
     ['label' => 'Report', 'url' => ['/report']],
     Yii::$app->user->isGuest
         ? ['label' => 'Login', 'url' => ['/auth/login']]
@@ -40,9 +42,9 @@ if (!Yii::$app->user->isGuest) {
         [
             'label' => 'Redact',
             'items' => [
-                ['label' => 'Redact books', 'url' => '/redact/books'],
+                ['label' => 'Redact books', 'url' => '/redact/book'],
                 '<div class="dropdown-divider"></div>',
-                ['label' => 'Redact authors', 'url' => 'redact/authors'],
+                ['label' => 'Redact authors', 'url' => 'redact/author'],
             ],
         ]
     ];

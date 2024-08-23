@@ -21,6 +21,12 @@ use yii\web\View;
 
     <div class="row">
         <?= GridView::widget([
+            'pager' => [
+                'linkOptions'                   => ['class' => 'page-link'],
+                'linkContainerOptions'          => ['class' => 'page-item'],
+                'disabledListItemSubTagOptions' => ['tag' => 'a', 'href' => '#', 'class' => "page-link"],
+            ],
+            'layout' => "{summary}\n{items}\n{pager}",
             'dataProvider' => $dataProvider,
             'filterModel' => $searchModel,
             'columns' => [

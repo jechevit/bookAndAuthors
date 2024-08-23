@@ -11,5 +11,8 @@ return [
         'signup' => 'signup/request',
         'signup/<_a:[\w-]+>' => 'signup/<_a>',
         '<_a:login|logout>' => 'auth/<_a>',
+
+        'author/<id:\d+>' => 'author/view',
+        'book/<id:\d+>' => 'book/view',
     ],
 ];
