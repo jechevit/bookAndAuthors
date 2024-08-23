@@ -1,6 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
+
 /** @var string $content */
 
 use app\assets\AppAsset;
@@ -19,6 +20,35 @@ $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, 
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+
+$items = [
+    ['label' => 'Home', 'url' => ['/site/index']],
+    ['label' => 'Report', 'url' => ['/report']],
+    Yii::$app->user->isGuest
+        ? ['label' => 'Login', 'url' => ['/auth/login']]
+        : '<li class="nav-item">'
+            . Html::beginForm(['/auth/logout'])
+            . Html::submitButton(
+             'Logout (' . Yii::$app->user->identity->getEmail() . ')',
+                ['class' => 'nav-link btn btn-link logout']
+            )
+            . Html::endForm()
+            . '</li>'
+];
+if (!Yii::$app->user->isGuest) {
+    $crudItems = [
+        [
+            'label' => 'Redact',
+            'items' => [
+                ['label' => 'Redact books', 'url' => '/redact/books'],
+                '<div class="dropdown-divider"></div>',
+                ['label' => 'Redact authors', 'url' => 'redact/authors'],
+            ],
+        ]
+    ];
+    $items = array_merge($crudItems, $items);
+}
+
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -39,20 +69,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     ]);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Report', 'url' => ['/report']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/auth/login']]
-                : '<li class="nav-item">'
-                    . Html::beginForm(['/auth/logout'])
-                    . Html::submitButton(
-                        'Logout (' . Yii::$app->user->identity->getEmail() . ')',
-                        ['class' => 'nav-link btn btn-link logout']
-                    )
-                    . Html::endForm()
-                    . '</li>'
-        ]
+        'items' => $items,
     ]);
     NavBar::end();
     ?>
