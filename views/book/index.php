@@ -31,8 +31,9 @@ use yii\web\View;
             'filterModel' => $searchModel,
             'columns' => [
                 'id',
+                'year',
                 [
-                    'label' => 'Full Name',
+                    'label' => 'Name',
                     'value' => function (Book $book) {
                         return $book->name;
                     },
