@@ -34,14 +34,19 @@ class BookRepository
 
     /**
      * @param int $id
-     * @return ActiveRecord|Book
+     * @return Book
      */
-    public function find(int $id): ActiveRecord|Book
+    public function find(int $id): Book
     {
-        $book = Book::find()->andWhere(['id' => $id])->limit(1)->one();
+        $book = $this->get($id);
         if (!$book) {
             throw new NotFoundException('Book not found.');
         }
         return $book;
+    }
+
+    public function get(int $id): Book|null
+    {
+        return Book::find()->andWhere(['id' => $id])->limit(1)->one();
     }
 }

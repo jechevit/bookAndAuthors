@@ -44,6 +44,20 @@ use yii\web\View;
                     },
                 ],
                 [
+                    'label' => 'Created at',
+                    'value' => function (Book $book) {
+                        return Yii::$app->formatter->asDate($book->created_at, 'php:Y-m-d H:i:s');
+                    },
+                ],
+                [
+                    'label' => 'Updated at',
+                    'value' => function (Book $book) {
+                        if ($book->updated_at) {
+                            return Yii::$app->formatter->asDate($book->updated_at, 'php:Y-m-d H:i:s');
+                        }
+                    },
+                ],
+                [
                     'class' => ActionColumn::class,
                     'buttons' => [
                         'view' => function ($url, Book $book) {

@@ -43,6 +43,21 @@ class Book extends ActiveRecord
     }
 
     /**
+     * @param string $name
+     * @param string $description
+     * @param int $year
+     * @param int $isbn
+     * @return void
+     */
+    public function edit(string $name, string $description, int $year, int $isbn): void
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->year = $year;
+        $this->isbn = $isbn;
+    }
+
+    /**
      * @param array | Author[] $authors
      * @return void
      */

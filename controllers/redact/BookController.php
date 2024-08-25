@@ -2,6 +2,7 @@
 
 namespace app\controllers\redact;
 
+use app\core\entities\catalog\Author;
 use app\core\forms\catalog\BookForm;
 use app\core\repositories\catalog\BookRepository;
 use yii\filters\AccessControl;
@@ -39,9 +40,17 @@ class BookController extends Controller
         $book = $this->bookRepository->find($id);
         $model = new BookForm($book);
 
+        $bookAuthors = Author::find()
+            ->andWhere(['id' => $model->authors])
+            ->indexBy('id')
+            ->all();
+
         return $this->render('view', [
             'book' => $book,
             'model' => $model,
+            'authors' => array_map(function (Author $author) {
+                return $author->getShortFullName();
+            }, $bookAuthors),
         ]);
     }
 }
