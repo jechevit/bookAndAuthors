@@ -18,7 +18,6 @@ class m240823_080830_create_book_author_assignments_table extends Migration
             'author_id' => $this->integer(),
         ]);
 
-        $this->addPrimaryKey('{{%pk-book_author_assignments}}', '{{%book_author_assignments}}', ['book_id', 'author_id']);
         $this->createIndex('{{%idx-book_author_assignments-book_id}}', '{{%book_author_assignments}}', 'book_id');
         $this->createIndex('{{%idx-book_author_assignments-author_id}}', '{{%book_author_assignments}}', 'author_id');
         $this->addForeignKey('{{%fk-book_author_assignments-book_id}}', '{{%book_author_assignments}}', 'book_id', '{{%books}}', 'id', 'CASCADE', 'RESTRICT');
