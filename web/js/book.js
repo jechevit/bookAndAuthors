@@ -6,7 +6,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     window.location.reload()
                 } else {
-                    console.log('%cError:' + response.error, 'background: black; color: red;')
+                    console.log('%cError:' + response.exception.message, 'background: black; color: red;')
                 }
             })
             return false;
