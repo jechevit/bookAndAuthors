@@ -51,8 +51,9 @@ class FakeController extends Controller
                         $authors[] = $randomAuthor;
                     }
                 }
+                $form->authors = $authors;
                 if ($form->load($data, '') && $form->validate()) {
-                    $this->bookService->create($form, $authors);
+                    $this->bookService->create($form);
                 }
                 unset($data);
                 unset($authors);

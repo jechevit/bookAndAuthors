@@ -3,6 +3,7 @@
 namespace app\core\repositories\catalog;
 
 use app\core\entities\catalog\Author;
+use app\core\exceptions\NotFoundException;
 use app\core\exceptions\SaveErrorException;
 
 class AuthorRepository
@@ -31,6 +32,24 @@ class AuthorRepository
             ->limit($limit)
             ->orderBy(['created_at' => SORT_DESC])
             ->all();
+    }
+
+    /**
+     * @param int $id
+     * @return Author
+     */
+    public function find(int $id): Author
+    {
+        $author = $this->get($id);
+        if (!$author) {
+            throw new NotFoundException('Author not found.');
+        }
+        return $author;
+    }
+
+    public function get(int $id): Author|null
+    {
+        return Author::find()->andWhere(['id' => $id])->limit(1)->one();
     }
 
 }

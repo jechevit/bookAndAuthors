@@ -24,4 +24,9 @@ class BookAuthorAssignment extends ActiveRecord
     {
         return '{{%book_author_assignments}}';
     }
+
+    public function isEqualAuthorId(int $id): bool
+    {
+        return $this->author_id == $id;
+    }
 }

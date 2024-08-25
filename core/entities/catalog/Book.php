@@ -58,18 +58,33 @@ class Book extends ActiveRecord
     }
 
     /**
-     * @param array | Author[] $authors
+     * @param Author $author
      * @return void
      */
-    public function addAuthor(array $authors): void
+    public function assignAuthor(Author $author): void
     {
         $authorAssignments = $this->authorAssignments;
-        foreach ($authors as $author) {
-            $authorAssignments[] = BookAuthorAssignment::create($author->id);
+        foreach ($authorAssignments as $authorAssignment) {
+            if ($authorAssignment->isEqualAuthorId($author->id)) {
+                return;
+            }
+        }
+        $authorAssignments[] = BookAuthorAssignment::create($author->id);
+        $this->authorAssignments = $authorAssignments;
+    }
+
+    public function revokeAuthor(int $author_id): void
+    {
+        $authorAssignments = $this->authorAssignments;
+        foreach ($authorAssignments as $key => $authorAssignment) {
+            if ($authorAssignment->isEqualAuthorId($author_id)) {
+                unset($authorAssignments[$key]);
+            }
         }
         $this->authorAssignments = $authorAssignments;
     }
 
+    /** @return string[] */
     public function getAuthorData(): array
     {
         return array_map(function (Author $author) {
