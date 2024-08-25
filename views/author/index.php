@@ -6,6 +6,7 @@ use yii\data\ActiveDataProvider;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 
 /**
@@ -46,9 +47,15 @@ use yii\web\View;
                 ],
                 [
                     'class' => ActionColumn::class,
+                    'buttons' => [
+                        'view' => function ($url, Author $author) {
+                            $url = Url::to(['redact/author/view', 'id' => $author->id]);
+                            return Html::a('Redact', $url, []);
+                        }
+                    ],
                     'template' => '{view}',
                     'visibleButtons' => [
-                            'view' => !Yii::$app->user->isGuest
+                        'view' => !Yii::$app->user->isGuest
                     ]
                 ]
             ]

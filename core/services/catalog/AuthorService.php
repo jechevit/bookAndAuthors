@@ -9,17 +9,10 @@ use app\core\repositories\catalog\AuthorRepository;
 
 class AuthorService
 {
-    private TransactionManager $transactionManager;
-    private AuthorRepository $repository;
-
     public function __construct(
-        AuthorRepository $repository,
-        TransactionManager $transactionManager,
-    )
-    {
-        $this->transactionManager = $transactionManager;
-        $this->repository = $repository;
-    }
+        private readonly AuthorRepository $repository,
+        private readonly TransactionManager $transactionManager,
+    ) {}
 
     public function create(AuthorForm $form): void
     {
@@ -50,7 +43,7 @@ class AuthorService
                 $model->patronymic,
                 $model->last_name
             );
-            $this->repository->save($model);
+            $this->repository->save($author);
         });
     }
 }
