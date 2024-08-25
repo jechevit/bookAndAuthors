@@ -9,6 +9,15 @@ use yii\db\ActiveQuery;
 
 class AuthorSearchForm extends Model
 {
+    public $last_name;
+
+    public function rules(): array
+    {
+        return [
+            ['last_name', 'string'],
+        ];
+    }
+
     public function search(array $params): ActiveDataProvider
     {
         $query = Author::find();
@@ -20,6 +29,7 @@ class AuthorSearchForm extends Model
             $query->where('0=1');
             return $dataProvider;
         }
+        $query->andFilterWhere(['like', 'last_name', $this->last_name]);
 
         return $dataProvider;
     }

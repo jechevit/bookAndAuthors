@@ -32,7 +32,8 @@ use yii\web\View;
             'columns' => [
                 'id',
                 [
-                    'label' => 'Full Name',
+                    'label' => 'last_name',
+                    'filter' => Html::input('text', 'last_name', $searchModel->last_name, ['class' => 'form-control']),
                     'value' => function (Author $author) {
                         return $author->getShortFullName();
                     },

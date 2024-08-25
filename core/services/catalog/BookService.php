@@ -7,11 +7,13 @@ use app\core\forms\catalog\BookForm;
 use app\core\repositories\catalog\AuthorRepository;
 use app\core\repositories\catalog\BookRepository;
 use app\core\services\TransactionManager;
+use yii\helpers\ArrayHelper;
 
 class BookService
 {
     public function __construct(
         private readonly BookRepository   $bookRepository,
+        private readonly AuthorService $authorService,
         private readonly AuthorRepository $authorRepository,
         private readonly TransactionManager $manager
     ) {}
@@ -36,6 +38,7 @@ class BookService
                 $book->assignAuthor($author);
             }
             $this->bookRepository->save($book);
+            $this->updateAuthorData(ArrayHelper::getColumn($book->authorAssignments, 'author_id'));
         });
     }
 
@@ -56,9 +59,11 @@ class BookService
             );
 
             $authors = $book->authorAssignments;
+            $authorIds = [];
             foreach ($authors as $author) {
                 if (!in_array($author->author_id, $model->authors)) {
                     $book->revokeAuthor($author->author_id);
+                    $authorIds[] = $author->author_id;
                 }
             }
 
@@ -67,6 +72,19 @@ class BookService
                 $book->assignAuthor($author);
             }
             $this->bookRepository->save($book);
+            $authorIds = array_unique(array_merge($authorIds, ArrayHelper::getColumn($book->authorAssignments, 'author_id')));
+            $this->updateAuthorData($authorIds);
         });
+    }
+
+    /**
+     * @param int[] $authorIds
+     * @return void
+     */
+    private function updateAuthorData(array $authorIds): void
+    {
+        foreach ($authorIds as $authorId) {
+            $this->authorService->countAuthorBooks($authorId);
+        }
     }
 }
