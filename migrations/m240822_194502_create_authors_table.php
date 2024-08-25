@@ -18,6 +18,7 @@ class m240822_194502_create_authors_table extends Migration
             'last_name' => $this->string()->notNull(),
             'patronymic' => $this->string()->notNull(),
             'created_at' => $this->integer()->notNull(),
+            'books_count' => $this->integer()->defaultValue(0),
             'updated_at' => $this->integer(),
         ]);
     }

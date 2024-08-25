@@ -40,7 +40,7 @@ use yii\web\View;
                 [
                     'label' => 'Books counter',
                     'value' => function (Author $author) {
-                        return count($author->books);
+                        return $author->books_count;
                     },
                 ],
                 [

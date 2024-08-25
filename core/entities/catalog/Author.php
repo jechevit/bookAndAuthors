@@ -10,6 +10,7 @@ use yii\db\BaseActiveRecord;
 /**
  * 2. Авторы - ФИО.
  * @property int $id
+ * @property int $books_count
  * @property string $name
  * @property string $patronymic
  * @property string $last_name
@@ -74,5 +75,10 @@ class Author extends ActiveRecord
                 ],
             ],
         ];
+    }
+
+    public function countBooks(): void
+    {
+        $this->books_count = count($this->bookAssignments);
     }
 }

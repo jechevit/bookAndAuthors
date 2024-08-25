@@ -32,7 +32,7 @@ class FakeController extends Controller
         $textFaker = new Text($generator);
 
         $authors = Author::find()->indexBy('id')
-            ->limit(200);
+            ->limit(2000);
 
         $form = new BookForm();
         foreach ($authors->batch(50) as $batch) {
@@ -44,16 +44,19 @@ class FakeController extends Controller
                     'isbn' => $generator->isbn13(),
                 ];
 
-                $authors = [$author];
+                $authors = [$author->id];
                 if ($key % 3 === 0) {
                     $randomAuthor = $batch[array_rand($batch, 1)];
                     if ($randomAuthor->id !== $author->id) {
-                        $authors[] = $randomAuthor;
+                        $authors[] = $randomAuthor->id;
                     }
                 }
                 $form->authors = $authors;
                 if ($form->load($data, '') && $form->validate()) {
                     $this->bookService->create($form);
+                }
+                foreach ($form->authors as $authorId) {
+                    $this->authorService->countAuthorBooks($authorId);
                 }
                 unset($data);
                 unset($authors);

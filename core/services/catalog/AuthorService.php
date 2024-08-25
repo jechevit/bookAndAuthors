@@ -30,4 +30,13 @@ class AuthorService
         );
         $this->repository->save($model);
     }
+
+    public function countAuthorBooks(mixed $authorId): void
+    {
+        $author = $this->repository->get($authorId);
+        if ($author) {
+            $author->countBooks();
+            $this->repository->save($author);
+        }
+    }
 }
