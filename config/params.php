@@ -1,6 +1,9 @@
 <?php
 
+
 return [
+    'staticPath' => dirname(__DIR__) . '/web/static',
+    'staticHostInfo' => 'http://localhost:8000/static',
     'bsDependencyEnabled' => false,
     'bsVersion' => '5.x',
     'adminEmail' => 'admin@example.com',

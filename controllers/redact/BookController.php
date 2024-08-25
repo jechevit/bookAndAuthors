@@ -6,6 +6,7 @@ use app\core\entities\catalog\Author;
 use app\core\forms\catalog\BookForm;
 use app\core\repositories\catalog\BookRepository;
 use app\core\services\catalog\BookService;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
@@ -51,6 +52,19 @@ class BookController extends Controller
                 return $author->getShortFullName();
             }, $bookAuthors),
         ]);
+    }
+
+    public function actionUpdate(int $id = null)
+    {
+        $book = $this->bookRepository->get($id);
+        $post = Yii::$app->request->post();
+
+        $model = new BookForm($book ?? null, []);
+        if ($model->load($post) && $model->validate()) {
+            $this->bookService->update($book, $model);
+        }
+
+        return  $this->redirect(['/book']);
     }
 
     public function actionDelete(int $id)

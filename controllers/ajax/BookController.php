@@ -62,6 +62,8 @@ class BookController extends AjaxController
         $model = new BookForm($book ?? null, []);
         $model->load($post);
 
+        dd($_FILES);
+
         return $this->asJson(ActiveForm::validate($model));
     }
 

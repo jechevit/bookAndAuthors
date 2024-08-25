@@ -33,6 +33,10 @@ class BookService
                 $form->isbn
             );
 
+            if ($form->photo) {
+                $book->setPhoto($form->photo);
+            }
+
             foreach ($form->authors as $id) {
                 $author = $this->authorRepository->get($id);
                 $book->assignAuthor($author);
@@ -57,6 +61,10 @@ class BookService
                 $model->year,
                 $model->isbn
             );
+
+            if ($model->photo) {
+                $book->setPhoto($model->photo);
+            }
 
             $authors = $book->authorAssignments;
             $authorIds = [];

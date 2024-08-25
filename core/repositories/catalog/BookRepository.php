@@ -11,7 +11,7 @@ class BookRepository
 {
     public function save(Book $model): void
     {
-        if (!$model->save(false)) {
+        if (!$model->save()) {
             throw new SaveErrorException('Saving error.');
         }
     }

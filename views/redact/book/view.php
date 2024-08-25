@@ -1,6 +1,5 @@
 <?php
 
-use app\assets\BookAsset;
 use app\core\entities\catalog\Book;
 use app\core\forms\catalog\BookForm;
 use kartik\select2\Select2;
@@ -18,12 +17,12 @@ use yii\web\View;
  * @var array $authors
  */
 
-BookAsset::register($this);
 
+$action = Url::to(['redact/book/update']);
 $action = Url::to(['ajax/book/update']);
 $validationAction = Url::to(['/ajax/book/validate']);
 if ($book) {
-    $action = Url::to(['ajax/book/update', 'id' => $book->id]);
+    $action = Url::to(['redact/book/update', 'id' => $book->id]);
     $validationAction = Url::to(['/ajax/book/validate', 'id' => $book->id]);
 }
 $this->title = "Edit #{$book->id} {$book->name}";
@@ -43,9 +42,8 @@ $this->title = "Edit #{$book->id} {$book->name}";
         'id' => 'book-form',
         'action' => $action,
         'options' => ['class' => 'content', 'enctype' => 'multipart/form-data'],
-        'enableAjaxValidation' => true,
-        'enableClientValidation' => false,
-        'validationUrl' => $validationAction,
+//        'enableAjaxValidation' => true,
+//        'validationUrl' => $validationAction,
         'fieldConfig' => [
             'errorOptions' => [
                 'encode' => false,
@@ -95,6 +93,12 @@ $this->title = "Edit #{$book->id} {$book->name}";
                 'class' => 'form-control',
                 'rows' => 4,
             ]) ?>
+        </div>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-body">
+            <?= $form->field($model, 'photo')->fileInput() ?>
         </div>
     </div>
 

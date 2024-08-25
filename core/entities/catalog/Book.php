@@ -7,6 +7,8 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
+use yii\web\UploadedFile;
+use yiidreamteam\upload\ImageUploadBehavior;
 
 /**
  * 1. Книга - название, год выпуска, описание, isbn, фото главной страницы.
@@ -15,12 +17,15 @@ use yii\db\BaseActiveRecord;
  * @property string $name
  * @property int $year
  * @property string $description
+ * @property string $photo
  * @property int $isbn
  * @property int $created_at
  * @property int $updated_at
  *
  * @property Author[] $authors
  * @property BookAuthorAssignment[] $authorAssignments
+ *
+ * @mixin ImageUploadBehavior
  */
 class Book extends ActiveRecord
 {
@@ -124,6 +129,23 @@ class Book extends ActiveRecord
                     BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
             ],
+            [
+                'class' => ImageUploadBehavior::class,
+                'attribute' => 'photo',
+                'createThumbsOnRequest' => true,
+                'filePath' => '@staticRoot/origin/books/[[id]].[[extension]]',
+                'fileUrl' => '@static/origin/books/[[id]].[[extension]]',
+                'thumbPath' => '@staticRoot/cache/books/[[profile]]_[[id]].[[extension]]',
+                'thumbUrl' => '@static/cache/books/[[profile]]_[[id]].[[extension]]',
+                'thumbs' => [
+                    'thumb' => ['width' => 640, 'height' => 480],
+                ],
+            ],
         ];
+    }
+
+    public function setPhoto(UploadedFile $photo)
+    {
+        $this->photo = $photo;
     }
 }
