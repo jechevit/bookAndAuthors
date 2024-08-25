@@ -40,6 +40,19 @@ class Author extends ActiveRecord
         return $model;
     }
 
+    /**
+     * @param string $name
+     * @param string $patronymic
+     * @param string $last_name
+     * @return void
+     */
+    public function edit(string $name, string $patronymic, string $last_name): void
+    {
+        $this->name = $name;
+        $this->patronymic = $patronymic;
+        $this->last_name = $last_name;
+    }
+
     public static function tableName(): string
     {
         return "{{%authors}}";
