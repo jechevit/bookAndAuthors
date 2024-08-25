@@ -39,9 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => "<div class=\"custom-control custom-checkbox\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
             ]) ?>
 
-            <a href="<?= Html::encode(Url::to(['/signup/request'])) ?>" class="btn btn-primary">Continue</a>
             <div class="form-group">
                 <div>
+                    <a href="<?= Html::encode(Url::to(['/signup/request'])) ?>" class="btn btn-success">Signup</a>
                     <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
             </div>

@@ -3,14 +3,10 @@
 namespace app\commands;
 
 use app\core\entities\catalog\Author;
-use app\core\entities\catalog\Book;
 use app\core\forms\catalog\AuthorForm;
 use app\core\forms\catalog\BookForm;
 use app\core\services\catalog\AuthorService;
 use app\core\services\catalog\BookService;
-use Faker\Calculator\Ean;
-use Faker\Provider\Base;
-use Faker\Provider\Lorem;
 use Faker\Provider\ru_RU\Person;
 use Faker\Provider\ru_RU\Text;
 use Yii;
@@ -45,7 +41,7 @@ class FakeController extends Controller
                 ];
 
                 $authors = [$author->id];
-                if ($key % 3 === 0) {
+                if ($key % 2 === 0) {
                     $randomAuthor = $batch[array_rand($batch, 1)];
                     if ($randomAuthor->id !== $author->id) {
                         $authors[] = $randomAuthor->id;

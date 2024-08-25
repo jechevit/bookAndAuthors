@@ -40,7 +40,9 @@ class BookForm extends Model
     public function rules(): array
     {
         return [
-            [['name', 'description', 'year', 'isbn', 'authors', 'photo'], 'required'],
+            [['name', 'description', 'year', 'isbn', 'authors',
+//                'photo'
+            ], 'required'],
             [['name'], 'string', 'length' => [10, 250]],
             [['description'], 'string', 'length' => [10, 1250]],
             [['year'], 'number',  'min' => 1900, 'max' => date('Y')],

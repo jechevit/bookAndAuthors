@@ -132,14 +132,8 @@ class Book extends ActiveRecord
             [
                 'class' => ImageUploadBehavior::class,
                 'attribute' => 'photo',
-                'createThumbsOnRequest' => true,
                 'filePath' => '@staticRoot/origin/books/[[id]].[[extension]]',
                 'fileUrl' => '@static/origin/books/[[id]].[[extension]]',
-                'thumbPath' => '@staticRoot/cache/books/[[profile]]_[[id]].[[extension]]',
-                'thumbUrl' => '@static/cache/books/[[profile]]_[[id]].[[extension]]',
-                'thumbs' => [
-                    'thumb' => ['width' => 640, 'height' => 480],
-                ],
             ],
         ];
     }
