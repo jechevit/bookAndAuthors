@@ -4,18 +4,13 @@ namespace app\core\repositories;
 
 use app\core\entities\User;
 use app\core\exceptions\NotFoundException;
-use core\exceptions\SaveErrorException;
+use app\core\exceptions\SaveErrorException;
 
 class UserRepository
 {
     public function findByUsernameOrEmail($value): ?User
     {
         return User::find()->andWhere(['or', ['username' => $value], ['email' => $value]])->one();
-    }
-
-    public function findByNetworkIdentity($network, $identity): ?User
-    {
-        return User::find()->joinWith('networks n')->andWhere(['n.network' => $network, 'n.identity' => $identity])->one();
     }
 
     public function get($id): User
