@@ -22,6 +22,9 @@ class m240823_080251_create_books_table extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer(),
         ]);
+
+        $this->createIndex('{{%idx-books-isbn}}', '{{%books}}', 'isbn', true);
+        $this->createIndex('{{%idx-books-year}}', '{{%books}}', 'year');
     }
 
     /**
