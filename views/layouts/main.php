@@ -37,19 +37,7 @@ $items = [
             . Html::endForm()
             . '</li>'
 ];
-if (!Yii::$app->user->isGuest) {
-    $crudItems = [
-        [
-            'label' => 'Redact',
-            'items' => [
-                ['label' => 'Redact books', 'url' => '/redact/book'],
-                '<div class="dropdown-divider"></div>',
-                ['label' => 'Redact authors', 'url' => 'redact/author'],
-            ],
-        ]
-    ];
-    $items = array_merge($crudItems, $items);
-}
+
 
 ?>
 <?php $this->beginPage() ?>
