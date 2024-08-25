@@ -100,6 +100,9 @@ $this->title = "Edit #{$book->id} {$book->name}";
 
     <div class="form-group mt-3">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Delete', Url::to(['redact/book/delete', 'id' => $book->id]), [
+            'class' => 'btn btn-danger',
+        ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

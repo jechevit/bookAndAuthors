@@ -5,19 +5,18 @@ namespace app\controllers\redact;
 use app\core\entities\catalog\Author;
 use app\core\forms\catalog\BookForm;
 use app\core\repositories\catalog\BookRepository;
+use app\core\services\catalog\BookService;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class BookController extends Controller
 {
-    private BookRepository $bookRepository;
-
     public function __construct($id, $module,
-                                BookRepository $bookRepository,
+                                private readonly BookRepository $bookRepository,
+                                private readonly BookService $bookService,
         $config = [])
     {
         parent::__construct($id, $module, $config);
-        $this->bookRepository = $bookRepository;
     }
 
     public function behaviors(): array
@@ -52,5 +51,13 @@ class BookController extends Controller
                 return $author->getShortFullName();
             }, $bookAuthors),
         ]);
+    }
+
+    public function actionDelete(int $id)
+    {
+        $book = $this->bookRepository->find($id);
+        $this->bookService->remove($book);
+
+        return $this->redirect(['/book']);
     }
 }

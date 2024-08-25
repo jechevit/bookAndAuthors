@@ -87,4 +87,13 @@ class BookService
             $this->authorService->countAuthorBooks($authorId);
         }
     }
+
+    public function remove(?Book $book): void
+    {
+        $authorIds = array_unique(ArrayHelper::getColumn($book->authorAssignments, 'author_id'));
+        $book->authorAssignments = [];
+        $this->bookRepository->save($book);
+        $this->bookRepository->remove($book);
+        $this->updateAuthorData($authorIds);
+    }
 }
