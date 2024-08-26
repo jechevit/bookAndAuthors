@@ -41,4 +41,13 @@ class AuthorController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionCreate()
+    {
+        $model = new AuthorForm();
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 }

@@ -14,15 +14,21 @@ class AuthorService
         private readonly TransactionManager $transactionManager,
     ) {}
 
-    public function create(AuthorForm $form): void
+    /**
+     * @param AuthorForm $form
+     * @return Author|null
+     * @throws \Throwable
+     */
+    public function create(AuthorForm $form):? Author
     {
-        $this->transactionManager->wrap(function () use ($form) {
+        return $this->transactionManager->wrap(function () use ($form) {
             $model = Author::create(
                 $form->name,
                 $form->patronymic,
                 $form->last_name
             );
             $this->repository->save($model);
+            return $model;
         });
     }
 

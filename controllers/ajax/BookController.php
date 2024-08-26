@@ -56,7 +56,9 @@ class BookController extends AjaxController
 
     public function actionValidate(int $id = null): Response
     {
-        $book = $this->bookRepository->get($id);
+        if ($id) {
+            $book = $this->bookRepository->get($id);
+        }
         $post = Yii::$app->request->post();
 
         $model = new BookForm($book ?? null, []);

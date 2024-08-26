@@ -37,7 +37,9 @@ class AuthorController extends Controller
     }
     public function actionValidate(int $id = null): Response
     {
-        $author = $this->authorRepository->get($id);
+        if ($id) {
+            $author = $this->authorRepository->get($id);
+        }
         $post = Yii::$app->request->post();
 
         $model = new AuthorForm($author ?? null, []);
@@ -58,6 +60,24 @@ class AuthorController extends Controller
 
         return $this->asJson([
             'status' => 'success',
+            'id' => $author->id,
+        ]);
+    }
+
+    public function actionCreate(): Response
+    {
+        $post = Yii::$app->request->post();
+
+        $model = new AuthorForm($author ?? null, []);
+        $model->load($post);
+        if (!$model->validate()) {
+            throw new \DomainException(implode("\n", $model->getFirstErrors()));
+        }
+
+        $author = $this->authorService->create($model);
+        return $this->asJson([
+            'status' => 'success',
+            'id' => $author->id,
         ]);
     }
 }

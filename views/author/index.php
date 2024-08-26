@@ -20,6 +20,12 @@ use yii\web\View;
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <?php if (!Yii::$app->user->isGuest): ?>
+        <?= Html::a('Create', ['/redact/author/create'], [
+            'class' => 'btn btn-primary',
+        ]) ?>
+    <?php endif; ?>
+
     <div class="row">
         <?= GridView::widget([
             'pager' => [

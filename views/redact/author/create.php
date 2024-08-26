@@ -1,7 +1,6 @@
 <?php
 
 use app\assets\AuthorAsset;
-use app\core\entities\catalog\Author;
 use app\core\forms\catalog\AuthorForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Breadcrumbs;
@@ -11,18 +10,14 @@ use yii\web\View;
 
 /**
  * @var View $this
- * @var Author | null $author
  * @var AuthorForm $model
  */
 
 AuthorAsset::register($this);
-$action = Url::to(['ajax/author/update']);
+
+$action = Url::to(['ajax/author/create']);
 $validationAction = Url::to(['/ajax/author/validate']);
-if ($author) {
-    $action = Url::to(['ajax/author/update', 'id' => $author->id]);
-    $validationAction = Url::to(['/ajax/author/validate', 'id' => $author->id]);
-}
-$this->title = "Edit #{$author->id} {$author->name}";
+$this->title = "Create author";
 ?>
 <div class="container">
     <?= Breadcrumbs::widget([
@@ -57,10 +52,7 @@ $this->title = "Edit #{$author->id} {$author->name}";
     ]) ?>
 
     <div class="form-group mt-3">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-        <?= Html::button('Remove', [
-            'class' => 'btn btn-danger author-remove',
-        ]) ?>
+        <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
